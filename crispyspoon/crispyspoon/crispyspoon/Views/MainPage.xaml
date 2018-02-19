@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:views="clr-namespace:crispyspoon.Views"
             x:Class="crispyspoon.Views.MainPage">
-    <TabbedPage.Children>
+    <!--<TabbedPage.Children>
         <NavigationPage Title="Browse">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
@@ -25,5 +25,19 @@
                 <views:AboutPage />
             </x:Arguments>
         </NavigationPage>
-    </TabbedPage.Children>
-</TabbedPage>
+    </TabbedPage.Children>-->
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Logout" Clicked="OnLogout_Clicked" />
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Main app content goes here"  
+                   HorizontalOptions="Center"  
+                   VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

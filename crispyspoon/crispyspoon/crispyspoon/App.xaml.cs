@@ -7,13 +7,20 @@ namespace crispyspoon
 {
 	public partial class App : Application
 	{
+        public static bool IsUserLoggedIn = false;
 
-		public App ()
+        public App ()
 		{
 			InitializeComponent();
 
-
-            MainPage = new MainPage();
+            if (!IsUserLoggedIn)
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new MainPage());
+            }
         }
 
 		protected override void OnStart ()
@@ -30,5 +37,6 @@ namespace crispyspoon
 		{
 			// Handle when your app resumes
 		}
-	}
+
+    }
 }
