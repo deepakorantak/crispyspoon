@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crispyspoon.Views.HomePage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="StartAndExpand">
+            <Button Text="Login" Clicked="OnLoginButtonClicked" BackgroundColor="{StaticResource Primary}" />
+            <Button Text="About" Clicked="OnAboutButtonClicked" BackgroundColor="{StaticResource Primary}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

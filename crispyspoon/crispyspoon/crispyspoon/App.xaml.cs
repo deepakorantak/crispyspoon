@@ -12,15 +12,16 @@ namespace crispyspoon
         public App ()
 		{
 			InitializeComponent();
+            MainPage = new NavigationPage(new HomePage());
 
-            if (!IsUserLoggedIn)
-            {
-                MainPage = new NavigationPage(new LoginPage());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new MainPage());
-            }
+            //if (!IsUserLoggedIn)
+            //{
+            //    MainPage = new NavigationPage(new LoginPage());
+            //}
+            //else
+            //{
+            //    MainPage = new NavigationPage(new MainPage());
+            //}
         }
 
 		protected override void OnStart ()
