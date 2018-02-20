@@ -3,15 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:views="clr-namespace:crispyspoon.Views"
              x:Class="crispyspoon.Views.LoginPage" 
-             Title="Login">
-    <ContentPage.Content>
-        <StackLayout VerticalOptions="StartAndExpand">
-            <Label Text="Username" />
-            <Entry x:Name="usernameEntry" Placeholder="Username" Text="admin" />
-            <Label Text="Password" />
-            <Entry x:Name="passwordEntry" IsPassword="true" Placeholder="Password" Text="admin" />
-            <Button Text="Login" Clicked="OnLoginButtonClicked" />
-            <Label x:Name="messageLabel" />
+             Title="{Binding Title}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+                </ContentView>
+            </StackLayout>
         </StackLayout>
-    </ContentPage.Content>
+        <ScrollView Grid.Row="1">
+            <StackLayout VerticalOptions="StartAndExpand">
+                <Entry Margin="10" x:Name="usernameEntry" Placeholder="Enter username" />
+                <Entry Margin="10" x:Name="passwordEntry" IsPassword="true" Placeholder="Enter password"/>
+                <Button Margin="10" Text="Login" Clicked="OnLoginButtonClicked" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
+                <Label x:Name="messageLabel" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
