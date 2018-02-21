@@ -1,2 +1,3 @@
 crispyspoon-admin/P@55w0rd-1
 Server=tcp:crispyspoonserver.database.windows.net,1433;Initial Catalog=crispyspoonDB;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+Scaffold-DbContext -Connection "Server=tcp:crispyspoonserver.database.windows.net,1433;Initial Catalog=crispyspoonDB;Persist Security Info=False;User ID=crispyspoon-admin;Password=P@55w0rd-1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir CrispySpoonDataModel -Context CrispySpoonDBContext -Schemas cafeteria 

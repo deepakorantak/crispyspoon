@@ -9,15 +9,19 @@ DROP TABLE [cafeteria].[tbt_menu_item];
 GO
 
 
+DROP TABLE [cafeteria].[tbm_facility_cafeteria_mapping];
+GO
+
+
+DROP TABLE [cafeteria].[tbt_user_favorites];
+GO
+
+
 DROP TABLE [cafeteria].[tbt_menu];
 GO
 
 
-DROP TABLE [cafeteria].[tbm_cafeteria];
-GO
-
-
-DROP TABLE [cafeteria].[tbm_user];
+DROP TABLE [cafeteria].[tbm_user_role];
 GO
 
 
@@ -25,11 +29,23 @@ DROP TABLE [cafeteria].[tbm_entitlement_mapping];
 GO
 
 
+DROP TABLE [cafeteria].[tbt_user_wishlist];
+GO
+
+
 DROP TABLE [cafeteria].[tbm_fooditem];
 GO
 
 
+DROP TABLE [cafeteria].[tbm_cafeteria];
+GO
+
+
 DROP TABLE [cafeteria].[tbm_facility];
+GO
+
+
+DROP TABLE [cafeteria].[tbm_user];
 GO
 
 
@@ -38,10 +54,6 @@ GO
 
 
 DROP TABLE [cafeteria].[tbm_role];
-GO
-
-
-DROP TABLE [cafeteria].[tbt_user_wishlist];
 GO
 
 
@@ -60,6 +72,21 @@ GO
 
 CREATE SCHEMA [cafeteria];
 GO
+
+--************************************** [cafeteria].[tbm_user]
+
+CREATE TABLE [cafeteria].[tbm_user]
+(
+ [user_id]        NUMERIC(18,0) NOT NULL ,
+ [city_code]      VARCHAR(10) NULL ,
+ [facility_code]  VARCHAR(10) NULL ,
+ [cafeteria_code] VARCHAR(10) NULL ,
+
+ CONSTRAINT [PK_tbm_user] PRIMARY KEY CLUSTERED ([user_id] ASC)
+);
+GO
+
+
 
 --************************************** [cafeteria].[tbm_entitlement]
 
@@ -83,19 +110,6 @@ CREATE TABLE [cafeteria].[tbm_role]
  [role_description] VARCHAR(50) NOT NULL ,
 
  CONSTRAINT [PK_tbm_role] PRIMARY KEY CLUSTERED ([role_code] ASC)
-);
-GO
-
-
-
---************************************** [cafeteria].[tbt_user_wishlist]
-
-CREATE TABLE [cafeteria].[tbt_user_wishlist]
-(
- [user_id]     NUMERIC(18,0) NOT NULL ,
- [wishlist_id] NUMERIC(18,0) NOT NULL ,
-
- CONSTRAINT [PK_tbt_user_wishlist] PRIMARY KEY CLUSTERED ([wishlist_id] ASC)
 );
 GO
 
@@ -127,23 +141,32 @@ GO
 
 
 
---************************************** [cafeteria].[tbm_user]
+--************************************** [cafeteria].[tbm_user_role]
 
-CREATE TABLE [cafeteria].[tbm_user]
+CREATE TABLE [cafeteria].[tbm_user_role]
 (
- [user_id]   NUMERIC(18,0) NOT NULL ,
  [role_code] VARCHAR(10) NOT NULL ,
+ [user_id]   NUMERIC(18,0) NOT NULL ,
 
- CONSTRAINT [PK_tbm_user] PRIMARY KEY CLUSTERED ([user_id] ASC, [role_code] ASC),
+ CONSTRAINT [PK_tbm_user_role] PRIMARY KEY CLUSTERED ([role_code] ASC, [user_id] ASC),
  CONSTRAINT [FK_153] FOREIGN KEY ([role_code])
-  REFERENCES [cafeteria].[tbm_role]([role_code])
+  REFERENCES [cafeteria].[tbm_role]([role_code]),
+ CONSTRAINT [FK_176] FOREIGN KEY ([user_id])
+  REFERENCES [cafeteria].[tbm_user]([user_id])
 );
 GO
 
 
-CREATE NONCLUSTERED INDEX [fkIdx_153] ON [cafeteria].[tbm_user] 
+CREATE NONCLUSTERED INDEX [fkIdx_153] ON [cafeteria].[tbm_user_role] 
  (
   [role_code] ASC
+ )
+
+GO
+
+CREATE NONCLUSTERED INDEX [fkIdx_176] ON [cafeteria].[tbm_user_role] 
+ (
+  [user_id] ASC
  )
 
 GO
@@ -180,6 +203,31 @@ CREATE NONCLUSTERED INDEX [fkIdx_141] ON [cafeteria].[tbm_entitlement_mapping]
 GO
 
 
+--************************************** [cafeteria].[tbt_user_wishlist]
+
+CREATE TABLE [cafeteria].[tbt_user_wishlist]
+(
+ [wishlist_id] NUMERIC(18,0) NOT NULL ,
+ [user_id]     NUMERIC(18,0) NOT NULL ,
+ [item_name]   VARCHAR(50) NOT NULL ,
+ [status]      VARCHAR(10) NOT NULL ,
+ [remarks]     VARCHAR(50) NULL ,
+
+ CONSTRAINT [PK_tbt_user_wishlist] PRIMARY KEY CLUSTERED ([wishlist_id] ASC),
+ CONSTRAINT [FK_193] FOREIGN KEY ([user_id])
+  REFERENCES [cafeteria].[tbm_user]([user_id])
+);
+GO
+
+
+CREATE NONCLUSTERED INDEX [fkIdx_193] ON [cafeteria].[tbt_user_wishlist] 
+ (
+  [user_id] ASC
+ )
+
+GO
+
+
 --************************************** [cafeteria].[tbm_fooditem]
 
 CREATE TABLE [cafeteria].[tbm_fooditem]
@@ -198,6 +246,29 @@ GO
 
 
 CREATE NONCLUSTERED INDEX [fkIdx_164] ON [cafeteria].[tbm_fooditem] 
+ (
+  [vendor_code] ASC
+ )
+
+GO
+
+
+--************************************** [cafeteria].[tbm_cafeteria]
+
+CREATE TABLE [cafeteria].[tbm_cafeteria]
+(
+ [cafeteria_code] VARCHAR(10) NOT NULL ,
+ [cafeteria_name] VARCHAR(100) NOT NULL ,
+ [vendor_code]    VARCHAR(10) NOT NULL ,
+
+ CONSTRAINT [PK_tbm_cafeteria] PRIMARY KEY CLUSTERED ([cafeteria_code] ASC),
+ CONSTRAINT [FK_201] FOREIGN KEY ([vendor_code])
+  REFERENCES [cafeteria].[tbm_vendor]([vendor_code])
+);
+GO
+
+
+CREATE NONCLUSTERED INDEX [fkIdx_201] ON [cafeteria].[tbm_cafeteria] 
  (
   [vendor_code] ASC
  )
@@ -228,34 +299,63 @@ CREATE NONCLUSTERED INDEX [fkIdx_19] ON [cafeteria].[tbm_facility]
 GO
 
 
---************************************** [cafeteria].[tbm_cafeteria]
+--************************************** [cafeteria].[tbm_facility_cafeteria_mapping]
 
-CREATE TABLE [cafeteria].[tbm_cafeteria]
+CREATE TABLE [cafeteria].[tbm_facility_cafeteria_mapping]
 (
- [cafeteria_code] VARCHAR(10) NOT NULL ,
- [cafeteria_name] VARCHAR(100) NOT NULL ,
  [facility_code]  VARCHAR(10) NOT NULL ,
- [vendor_code]    VARCHAR(10) NOT NULL ,
+ [cafeteria_code] VARCHAR(10) NOT NULL ,
 
- CONSTRAINT [PK_tbm_cafeteria] PRIMARY KEY CLUSTERED ([cafeteria_code] ASC),
- CONSTRAINT [FK_29] FOREIGN KEY ([facility_code])
+ CONSTRAINT [PK_tbm_facility_cafeteria_mapping] PRIMARY KEY CLUSTERED ([facility_code] ASC, [cafeteria_code] ASC),
+ CONSTRAINT [FK_205] FOREIGN KEY ([facility_code])
   REFERENCES [cafeteria].[tbm_facility]([facility_code]),
- CONSTRAINT [FK_38] FOREIGN KEY ([vendor_code])
-  REFERENCES [cafeteria].[tbm_vendor]([vendor_code])
+ CONSTRAINT [FK_210] FOREIGN KEY ([cafeteria_code])
+  REFERENCES [cafeteria].[tbm_cafeteria]([cafeteria_code])
 );
 GO
 
 
-CREATE NONCLUSTERED INDEX [fkIdx_29] ON [cafeteria].[tbm_cafeteria] 
+CREATE NONCLUSTERED INDEX [fkIdx_205] ON [cafeteria].[tbm_facility_cafeteria_mapping] 
  (
   [facility_code] ASC
  )
 
 GO
 
-CREATE NONCLUSTERED INDEX [fkIdx_38] ON [cafeteria].[tbm_cafeteria] 
+CREATE NONCLUSTERED INDEX [fkIdx_210] ON [cafeteria].[tbm_facility_cafeteria_mapping] 
  (
-  [vendor_code] ASC
+  [cafeteria_code] ASC
+ )
+
+GO
+
+
+--************************************** [cafeteria].[tbt_user_favorites]
+
+CREATE TABLE [cafeteria].[tbt_user_favorites]
+(
+ [user_id]   NUMERIC(18,0) NOT NULL ,
+ [item_code] VARCHAR(10) NOT NULL ,
+
+ CONSTRAINT [PK_tbt_user_favorites] PRIMARY KEY CLUSTERED ([user_id] ASC, [item_code] ASC),
+ CONSTRAINT [FK_183] FOREIGN KEY ([user_id])
+  REFERENCES [cafeteria].[tbm_user]([user_id]),
+ CONSTRAINT [FK_189] FOREIGN KEY ([item_code])
+  REFERENCES [cafeteria].[tbm_fooditem]([item_code])
+);
+GO
+
+
+CREATE NONCLUSTERED INDEX [fkIdx_183] ON [cafeteria].[tbt_user_favorites] 
+ (
+  [user_id] ASC
+ )
+
+GO
+
+CREATE NONCLUSTERED INDEX [fkIdx_189] ON [cafeteria].[tbt_user_favorites] 
+ (
+  [item_code] ASC
  )
 
 GO
@@ -268,6 +368,7 @@ CREATE TABLE [cafeteria].[tbt_menu]
  [menu_id]        NUMERIC(18,0) NOT NULL ,
  [menu_date]      DATE NOT NULL ,
  [meal_type]      VARCHAR(10) NOT NULL ,
+ [menu_item_name] VARCHAR(50) NOT NULL ,
  [cafeteria_code] VARCHAR(10) NOT NULL ,
 
  CONSTRAINT [PK_tbt_menu] PRIMARY KEY CLUSTERED ([menu_id] ASC),
@@ -284,9 +385,10 @@ CREATE NONCLUSTERED INDEX [fkIdx_56] ON [cafeteria].[tbt_menu]
 
 GO
 
-CREATE NONCLUSTERED INDEX [Ind_menu_date] ON [cafeteria].[tbt_menu] 
+CREATE NONCLUSTERED INDEX [Ind_menu_date_cafe] ON [cafeteria].[tbt_menu] 
  (
-  [menu_date] ASC
+  [menu_date] ASC, 
+  [cafeteria_code] ASC
  )
 
 GO
