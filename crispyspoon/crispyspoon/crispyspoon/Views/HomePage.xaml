@@ -17,8 +17,8 @@
         </StackLayout>
         <ScrollView Grid.Row="1" VerticalOptions="Center">
             <StackLayout VerticalOptions="StartAndExpand">
-                <Button Margin="10,10,10,0" Text="Login" Clicked="OnLoginButtonClicked" BackgroundColor="{StaticResource Primary}" TextColor="White" />
-                <Button Margin="10,10,10,0" Text="About" Clicked="OnAboutButtonClicked" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
+                <Button Margin="10,10,10,0" Text="Login" Clicked="OnLoginButtonClicked" />
+                <Button Margin="10,10,10,0" Text="About" Clicked="OnAboutButtonClicked" />
             </StackLayout>
         </ScrollView>
     </Grid>
