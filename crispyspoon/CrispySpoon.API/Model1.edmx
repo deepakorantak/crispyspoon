@@ -1,0 +1,872 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="crispyspoonDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbm_cafeteria">
+          <Key>
+            <PropertyRef Name="cafeteria_code" />
+          </Key>
+          <Property Name="cafeteria_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cafeteria_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="vendor_code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_city">
+          <Key>
+            <PropertyRef Name="city_code" />
+          </Key>
+          <Property Name="city_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="city_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_entitlement">
+          <Key>
+            <PropertyRef Name="entitlement_code" />
+          </Key>
+          <Property Name="entitlement_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="entitlement_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="entitlement_description" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_entitlement_mapping">
+          <Key>
+            <PropertyRef Name="role_code" />
+            <PropertyRef Name="entitlement_code" />
+          </Key>
+          <Property Name="role_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="entitlement_code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_facility">
+          <Key>
+            <PropertyRef Name="facility_code" />
+          </Key>
+          <Property Name="facility_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="facility_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="city_code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_facility_cafeteria_mapping">
+          <Key>
+            <PropertyRef Name="facility_code" />
+            <PropertyRef Name="cafeteria_code" />
+          </Key>
+          <Property Name="facility_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="cafeteria_code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_fooditem">
+          <Key>
+            <PropertyRef Name="item_code" />
+          </Key>
+          <Property Name="item_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="item_description" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="calorie_count" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="item_veg_nonveg" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="vendor_code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_role">
+          <Key>
+            <PropertyRef Name="role_code" />
+          </Key>
+          <Property Name="role_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="role_description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="city_code" Type="varchar" MaxLength="10" />
+          <Property Name="facility_code" Type="varchar" MaxLength="10" />
+          <Property Name="cafeteria_code" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tbm_user_role">
+          <Key>
+            <PropertyRef Name="role_code" />
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="role_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbm_vendor">
+          <Key>
+            <PropertyRef Name="vendor_code" />
+          </Key>
+          <Property Name="vendor_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="vendor_name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbt_menu">
+          <Key>
+            <PropertyRef Name="menu_id" />
+          </Key>
+          <Property Name="menu_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="menu_date" Type="date" Nullable="false" />
+          <Property Name="meal_type" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="menu_item_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cafeteria_code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbt_menu_item">
+          <Key>
+            <PropertyRef Name="item_code" />
+            <PropertyRef Name="menu_id" />
+          </Key>
+          <Property Name="item_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="menu_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbt_order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="menu_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="order_placed" Type="datetime" Nullable="false" />
+          <Property Name="order_delivered" Type="datetime" />
+          <Property Name="order_printed" Type="datetime" />
+          <Property Name="order_status" Type="varchar" MaxLength="50" />
+          <Property Name="order_qr_code" Type="image" />
+          <Property Name="order_rating" Type="numeric" Precision="2" Scale="1" />
+        </EntityType>
+        <EntityType Name="tbt_user_favorites">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="item_code" />
+          </Key>
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="item_code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbt_user_wishlist">
+          <Key>
+            <PropertyRef Name="wishlist_id" />
+          </Key>
+          <Property Name="wishlist_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="user_id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="item_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="remarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_100">
+          <End Role="tbt_menu" Type="Self.tbt_menu" Multiplicity="1" />
+          <End Role="tbt_order" Type="Self.tbt_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbt_menu">
+              <PropertyRef Name="menu_id" />
+            </Principal>
+            <Dependent Role="tbt_order">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_129">
+          <End Role="tbm_role" Type="Self.tbm_role" Multiplicity="1" />
+          <End Role="tbm_entitlement_mapping" Type="Self.tbm_entitlement_mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_role">
+              <PropertyRef Name="role_code" />
+            </Principal>
+            <Dependent Role="tbm_entitlement_mapping">
+              <PropertyRef Name="role_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_141">
+          <End Role="tbm_entitlement" Type="Self.tbm_entitlement" Multiplicity="1" />
+          <End Role="tbm_entitlement_mapping" Type="Self.tbm_entitlement_mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_entitlement">
+              <PropertyRef Name="entitlement_code" />
+            </Principal>
+            <Dependent Role="tbm_entitlement_mapping">
+              <PropertyRef Name="entitlement_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_153">
+          <End Role="tbm_role" Type="Self.tbm_role" Multiplicity="1" />
+          <End Role="tbm_user_role" Type="Self.tbm_user_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_role">
+              <PropertyRef Name="role_code" />
+            </Principal>
+            <Dependent Role="tbm_user_role">
+              <PropertyRef Name="role_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_164">
+          <End Role="tbm_vendor" Type="Self.tbm_vendor" Multiplicity="1" />
+          <End Role="tbm_fooditem" Type="Self.tbm_fooditem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_vendor">
+              <PropertyRef Name="vendor_code" />
+            </Principal>
+            <Dependent Role="tbm_fooditem">
+              <PropertyRef Name="vendor_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_176">
+          <End Role="tbm_user" Type="Self.tbm_user" Multiplicity="1" />
+          <End Role="tbm_user_role" Type="Self.tbm_user_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tbm_user_role">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_183">
+          <End Role="tbm_user" Type="Self.tbm_user" Multiplicity="1" />
+          <End Role="tbt_user_favorites" Type="Self.tbt_user_favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tbt_user_favorites">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_189">
+          <End Role="tbm_fooditem" Type="Self.tbm_fooditem" Multiplicity="1" />
+          <End Role="tbt_user_favorites" Type="Self.tbt_user_favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_fooditem">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="tbt_user_favorites">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_19">
+          <End Role="tbm_city" Type="Self.tbm_city" Multiplicity="1" />
+          <End Role="tbm_facility" Type="Self.tbm_facility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_city">
+              <PropertyRef Name="city_code" />
+            </Principal>
+            <Dependent Role="tbm_facility">
+              <PropertyRef Name="city_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_193">
+          <End Role="tbm_user" Type="Self.tbm_user" Multiplicity="1" />
+          <End Role="tbt_user_wishlist" Type="Self.tbt_user_wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tbt_user_wishlist">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_201">
+          <End Role="tbm_vendor" Type="Self.tbm_vendor" Multiplicity="1" />
+          <End Role="tbm_cafeteria" Type="Self.tbm_cafeteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_vendor">
+              <PropertyRef Name="vendor_code" />
+            </Principal>
+            <Dependent Role="tbm_cafeteria">
+              <PropertyRef Name="vendor_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_205">
+          <End Role="tbm_facility" Type="Self.tbm_facility" Multiplicity="1" />
+          <End Role="tbm_facility_cafeteria_mapping" Type="Self.tbm_facility_cafeteria_mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_facility">
+              <PropertyRef Name="facility_code" />
+            </Principal>
+            <Dependent Role="tbm_facility_cafeteria_mapping">
+              <PropertyRef Name="facility_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_210">
+          <End Role="tbm_cafeteria" Type="Self.tbm_cafeteria" Multiplicity="1" />
+          <End Role="tbm_facility_cafeteria_mapping" Type="Self.tbm_facility_cafeteria_mapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_cafeteria">
+              <PropertyRef Name="cafeteria_code" />
+            </Principal>
+            <Dependent Role="tbm_facility_cafeteria_mapping">
+              <PropertyRef Name="cafeteria_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_56">
+          <End Role="tbm_cafeteria" Type="Self.tbm_cafeteria" Multiplicity="1" />
+          <End Role="tbt_menu" Type="Self.tbt_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_cafeteria">
+              <PropertyRef Name="cafeteria_code" />
+            </Principal>
+            <Dependent Role="tbt_menu">
+              <PropertyRef Name="cafeteria_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_82">
+          <End Role="tbm_fooditem" Type="Self.tbm_fooditem" Multiplicity="1" />
+          <End Role="tbt_menu_item" Type="Self.tbt_menu_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_fooditem">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="tbt_menu_item">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_87">
+          <End Role="tbt_menu" Type="Self.tbt_menu" Multiplicity="1" />
+          <End Role="tbt_menu_item" Type="Self.tbt_menu_item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbt_menu">
+              <PropertyRef Name="menu_id" />
+            </Principal>
+            <Dependent Role="tbt_menu_item">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="crispyspoonDBModelStoreContainer">
+          <EntitySet Name="tbm_cafeteria" EntityType="Self.tbm_cafeteria" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_city" EntityType="Self.tbm_city" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_entitlement" EntityType="Self.tbm_entitlement" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_entitlement_mapping" EntityType="Self.tbm_entitlement_mapping" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_facility" EntityType="Self.tbm_facility" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_facility_cafeteria_mapping" EntityType="Self.tbm_facility_cafeteria_mapping" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_fooditem" EntityType="Self.tbm_fooditem" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_role" EntityType="Self.tbm_role" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_user" EntityType="Self.tbm_user" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_user_role" EntityType="Self.tbm_user_role" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbm_vendor" EntityType="Self.tbm_vendor" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbt_menu" EntityType="Self.tbt_menu" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbt_menu_item" EntityType="Self.tbt_menu_item" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbt_order" EntityType="Self.tbt_order" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbt_user_favorites" EntityType="Self.tbt_user_favorites" Schema="cafeteria" store:Type="Tables" />
+          <EntitySet Name="tbt_user_wishlist" EntityType="Self.tbt_user_wishlist" Schema="cafeteria" store:Type="Tables" />
+          <AssociationSet Name="FK_100" Association="Self.FK_100">
+            <End Role="tbt_menu" EntitySet="tbt_menu" />
+            <End Role="tbt_order" EntitySet="tbt_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_129" Association="Self.FK_129">
+            <End Role="tbm_role" EntitySet="tbm_role" />
+            <End Role="tbm_entitlement_mapping" EntitySet="tbm_entitlement_mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_141" Association="Self.FK_141">
+            <End Role="tbm_entitlement" EntitySet="tbm_entitlement" />
+            <End Role="tbm_entitlement_mapping" EntitySet="tbm_entitlement_mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_153" Association="Self.FK_153">
+            <End Role="tbm_role" EntitySet="tbm_role" />
+            <End Role="tbm_user_role" EntitySet="tbm_user_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_164" Association="Self.FK_164">
+            <End Role="tbm_vendor" EntitySet="tbm_vendor" />
+            <End Role="tbm_fooditem" EntitySet="tbm_fooditem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_176" Association="Self.FK_176">
+            <End Role="tbm_user" EntitySet="tbm_user" />
+            <End Role="tbm_user_role" EntitySet="tbm_user_role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_183" Association="Self.FK_183">
+            <End Role="tbm_user" EntitySet="tbm_user" />
+            <End Role="tbt_user_favorites" EntitySet="tbt_user_favorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_189" Association="Self.FK_189">
+            <End Role="tbm_fooditem" EntitySet="tbm_fooditem" />
+            <End Role="tbt_user_favorites" EntitySet="tbt_user_favorites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_19" Association="Self.FK_19">
+            <End Role="tbm_city" EntitySet="tbm_city" />
+            <End Role="tbm_facility" EntitySet="tbm_facility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_193" Association="Self.FK_193">
+            <End Role="tbm_user" EntitySet="tbm_user" />
+            <End Role="tbt_user_wishlist" EntitySet="tbt_user_wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_201" Association="Self.FK_201">
+            <End Role="tbm_vendor" EntitySet="tbm_vendor" />
+            <End Role="tbm_cafeteria" EntitySet="tbm_cafeteria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_205" Association="Self.FK_205">
+            <End Role="tbm_facility" EntitySet="tbm_facility" />
+            <End Role="tbm_facility_cafeteria_mapping" EntitySet="tbm_facility_cafeteria_mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_210" Association="Self.FK_210">
+            <End Role="tbm_cafeteria" EntitySet="tbm_cafeteria" />
+            <End Role="tbm_facility_cafeteria_mapping" EntitySet="tbm_facility_cafeteria_mapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_56" Association="Self.FK_56">
+            <End Role="tbm_cafeteria" EntitySet="tbm_cafeteria" />
+            <End Role="tbt_menu" EntitySet="tbt_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_82" Association="Self.FK_82">
+            <End Role="tbm_fooditem" EntitySet="tbm_fooditem" />
+            <End Role="tbt_menu_item" EntitySet="tbt_menu_item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_87" Association="Self.FK_87">
+            <End Role="tbt_menu" EntitySet="tbt_menu" />
+            <End Role="tbt_menu_item" EntitySet="tbt_menu_item" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="crispyspoonDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbm_cafeteria">
+          <Key>
+            <PropertyRef Name="cafeteria_code" />
+          </Key>
+          <Property Name="cafeteria_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cafeteria_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="vendor_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_vendor" Relationship="Self.FK_201" FromRole="tbm_cafeteria" ToRole="tbm_vendor" />
+          <NavigationProperty Name="tbt_menu" Relationship="Self.FK_56" FromRole="tbm_cafeteria" ToRole="tbt_menu" />
+          <NavigationProperty Name="tbm_facility" Relationship="Self.tbm_facility_cafeteria_mapping" FromRole="tbm_cafeteria" ToRole="tbm_facility" />
+        </EntityType>
+        <EntityType Name="tbm_city">
+          <Key>
+            <PropertyRef Name="city_code" />
+          </Key>
+          <Property Name="city_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_facility" Relationship="Self.FK_19" FromRole="tbm_city" ToRole="tbm_facility" />
+        </EntityType>
+        <EntityType Name="tbm_entitlement">
+          <Key>
+            <PropertyRef Name="entitlement_code" />
+          </Key>
+          <Property Name="entitlement_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="entitlement_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="entitlement_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_role" Relationship="Self.tbm_entitlement_mapping" FromRole="tbm_entitlement" ToRole="tbm_role" />
+        </EntityType>
+        <EntityType Name="tbm_facility">
+          <Key>
+            <PropertyRef Name="facility_code" />
+          </Key>
+          <Property Name="facility_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="facility_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_city" Relationship="Self.FK_19" FromRole="tbm_facility" ToRole="tbm_city" />
+          <NavigationProperty Name="tbm_cafeteria" Relationship="Self.tbm_facility_cafeteria_mapping" FromRole="tbm_facility" ToRole="tbm_cafeteria" />
+        </EntityType>
+        <EntityType Name="tbm_fooditem">
+          <Key>
+            <PropertyRef Name="item_code" />
+          </Key>
+          <Property Name="item_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="item_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="calorie_count" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="item_veg_nonveg" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="vendor_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_vendor" Relationship="Self.FK_164" FromRole="tbm_fooditem" ToRole="tbm_vendor" />
+          <NavigationProperty Name="tbt_menu" Relationship="Self.tbt_menu_item" FromRole="tbm_fooditem" ToRole="tbt_menu" />
+          <NavigationProperty Name="tbm_user" Relationship="Self.tbt_user_favorites" FromRole="tbm_fooditem" ToRole="tbm_user" />
+        </EntityType>
+        <EntityType Name="tbm_role">
+          <Key>
+            <PropertyRef Name="role_code" />
+          </Key>
+          <Property Name="role_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role_description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_entitlement" Relationship="Self.tbm_entitlement_mapping" FromRole="tbm_role" ToRole="tbm_entitlement" />
+          <NavigationProperty Name="tbm_user" Relationship="Self.tbm_user_role" FromRole="tbm_role" ToRole="tbm_user" />
+        </EntityType>
+        <EntityType Name="tbm_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="city_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="facility_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cafeteria_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbt_user_wishlist" Relationship="Self.FK_193" FromRole="tbm_user" ToRole="tbt_user_wishlist" />
+          <NavigationProperty Name="tbm_role" Relationship="Self.tbm_user_role" FromRole="tbm_user" ToRole="tbm_role" />
+          <NavigationProperty Name="tbm_fooditem" Relationship="Self.tbt_user_favorites" FromRole="tbm_user" ToRole="tbm_fooditem" />
+        </EntityType>
+        <EntityType Name="tbm_vendor">
+          <Key>
+            <PropertyRef Name="vendor_code" />
+          </Key>
+          <Property Name="vendor_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="vendor_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_cafeteria" Relationship="Self.FK_201" FromRole="tbm_vendor" ToRole="tbm_cafeteria" />
+          <NavigationProperty Name="tbm_fooditem" Relationship="Self.FK_164" FromRole="tbm_vendor" ToRole="tbm_fooditem" />
+        </EntityType>
+        <EntityType Name="tbt_menu">
+          <Key>
+            <PropertyRef Name="menu_id" />
+          </Key>
+          <Property Name="menu_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="menu_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="meal_type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="menu_item_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cafeteria_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbm_cafeteria" Relationship="Self.FK_56" FromRole="tbt_menu" ToRole="tbm_cafeteria" />
+          <NavigationProperty Name="tbt_order" Relationship="Self.FK_100" FromRole="tbt_menu" ToRole="tbt_order" />
+          <NavigationProperty Name="tbm_fooditem" Relationship="Self.tbt_menu_item" FromRole="tbt_menu" ToRole="tbm_fooditem" />
+        </EntityType>
+        <EntityType Name="tbt_order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="menu_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="order_placed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="order_delivered" Type="DateTime" Precision="3" />
+          <Property Name="order_printed" Type="DateTime" Precision="3" />
+          <Property Name="order_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="order_qr_code" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="order_rating" Type="Decimal" Precision="2" Scale="1" />
+          <NavigationProperty Name="tbt_menu" Relationship="Self.FK_100" FromRole="tbt_order" ToRole="tbt_menu" />
+        </EntityType>
+        <EntityType Name="tbt_user_wishlist">
+          <Key>
+            <PropertyRef Name="wishlist_id" />
+          </Key>
+          <Property Name="wishlist_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="user_id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="item_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbm_user" Relationship="Self.FK_193" FromRole="tbt_user_wishlist" ToRole="tbm_user" />
+        </EntityType>
+        <Association Name="FK_201">
+          <End Role="tbm_vendor" Type="Self.tbm_vendor" Multiplicity="1" />
+          <End Role="tbm_cafeteria" Type="Self.tbm_cafeteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_vendor">
+              <PropertyRef Name="vendor_code" />
+            </Principal>
+            <Dependent Role="tbm_cafeteria">
+              <PropertyRef Name="vendor_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_56">
+          <End Role="tbm_cafeteria" Type="Self.tbm_cafeteria" Multiplicity="1" />
+          <End Role="tbt_menu" Type="Self.tbt_menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_cafeteria">
+              <PropertyRef Name="cafeteria_code" />
+            </Principal>
+            <Dependent Role="tbt_menu">
+              <PropertyRef Name="cafeteria_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_19">
+          <End Role="tbm_city" Type="Self.tbm_city" Multiplicity="1" />
+          <End Role="tbm_facility" Type="Self.tbm_facility" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_city">
+              <PropertyRef Name="city_code" />
+            </Principal>
+            <Dependent Role="tbm_facility">
+              <PropertyRef Name="city_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_164">
+          <End Role="tbm_vendor" Type="Self.tbm_vendor" Multiplicity="1" />
+          <End Role="tbm_fooditem" Type="Self.tbm_fooditem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_vendor">
+              <PropertyRef Name="vendor_code" />
+            </Principal>
+            <Dependent Role="tbm_fooditem">
+              <PropertyRef Name="vendor_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_193">
+          <End Role="tbm_user" Type="Self.tbm_user" Multiplicity="1" />
+          <End Role="tbt_user_wishlist" Type="Self.tbt_user_wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbm_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tbt_user_wishlist">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_100">
+          <End Role="tbt_menu" Type="Self.tbt_menu" Multiplicity="1" />
+          <End Role="tbt_order" Type="Self.tbt_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbt_menu">
+              <PropertyRef Name="menu_id" />
+            </Principal>
+            <Dependent Role="tbt_order">
+              <PropertyRef Name="menu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tbm_entitlement_mapping">
+          <End Role="tbm_role" Type="Self.tbm_role" Multiplicity="*" />
+          <End Role="tbm_entitlement" Type="Self.tbm_entitlement" Multiplicity="*" />
+        </Association>
+        <Association Name="tbm_facility_cafeteria_mapping">
+          <End Role="tbm_facility" Type="Self.tbm_facility" Multiplicity="*" />
+          <End Role="tbm_cafeteria" Type="Self.tbm_cafeteria" Multiplicity="*" />
+        </Association>
+        <Association Name="tbm_user_role">
+          <End Role="tbm_role" Type="Self.tbm_role" Multiplicity="*" />
+          <End Role="tbm_user" Type="Self.tbm_user" Multiplicity="*" />
+        </Association>
+        <Association Name="tbt_menu_item">
+          <End Role="tbm_fooditem" Type="Self.tbm_fooditem" Multiplicity="*" />
+          <End Role="tbt_menu" Type="Self.tbt_menu" Multiplicity="*" />
+        </Association>
+        <Association Name="tbt_user_favorites">
+          <End Role="tbm_user" Type="Self.tbm_user" Multiplicity="*" />
+          <End Role="tbm_fooditem" Type="Self.tbm_fooditem" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="crispyspoonDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbm_cafeteria" EntityType="Self.tbm_cafeteria" />
+          <EntitySet Name="tbm_city" EntityType="Self.tbm_city" />
+          <EntitySet Name="tbm_entitlement" EntityType="Self.tbm_entitlement" />
+          <EntitySet Name="tbm_facility" EntityType="Self.tbm_facility" />
+          <EntitySet Name="tbm_fooditem" EntityType="Self.tbm_fooditem" />
+          <EntitySet Name="tbm_role" EntityType="Self.tbm_role" />
+          <EntitySet Name="tbm_user" EntityType="Self.tbm_user" />
+          <EntitySet Name="tbm_vendor" EntityType="Self.tbm_vendor" />
+          <EntitySet Name="tbt_menu" EntityType="Self.tbt_menu" />
+          <EntitySet Name="tbt_order" EntityType="Self.tbt_order" />
+          <EntitySet Name="tbt_user_wishlist" EntityType="Self.tbt_user_wishlist" />
+          <AssociationSet Name="FK_201" Association="Self.FK_201">
+            <End Role="tbm_vendor" EntitySet="tbm_vendor" />
+            <End Role="tbm_cafeteria" EntitySet="tbm_cafeteria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_56" Association="Self.FK_56">
+            <End Role="tbm_cafeteria" EntitySet="tbm_cafeteria" />
+            <End Role="tbt_menu" EntitySet="tbt_menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_19" Association="Self.FK_19">
+            <End Role="tbm_city" EntitySet="tbm_city" />
+            <End Role="tbm_facility" EntitySet="tbm_facility" />
+          </AssociationSet>
+          <AssociationSet Name="FK_164" Association="Self.FK_164">
+            <End Role="tbm_vendor" EntitySet="tbm_vendor" />
+            <End Role="tbm_fooditem" EntitySet="tbm_fooditem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_193" Association="Self.FK_193">
+            <End Role="tbm_user" EntitySet="tbm_user" />
+            <End Role="tbt_user_wishlist" EntitySet="tbt_user_wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_100" Association="Self.FK_100">
+            <End Role="tbt_menu" EntitySet="tbt_menu" />
+            <End Role="tbt_order" EntitySet="tbt_order" />
+          </AssociationSet>
+          <AssociationSet Name="tbm_entitlement_mapping" Association="Self.tbm_entitlement_mapping">
+            <End Role="tbm_role" EntitySet="tbm_role" />
+            <End Role="tbm_entitlement" EntitySet="tbm_entitlement" />
+          </AssociationSet>
+          <AssociationSet Name="tbm_facility_cafeteria_mapping" Association="Self.tbm_facility_cafeteria_mapping">
+            <End Role="tbm_facility" EntitySet="tbm_facility" />
+            <End Role="tbm_cafeteria" EntitySet="tbm_cafeteria" />
+          </AssociationSet>
+          <AssociationSet Name="tbm_user_role" Association="Self.tbm_user_role">
+            <End Role="tbm_role" EntitySet="tbm_role" />
+            <End Role="tbm_user" EntitySet="tbm_user" />
+          </AssociationSet>
+          <AssociationSet Name="tbt_menu_item" Association="Self.tbt_menu_item">
+            <End Role="tbm_fooditem" EntitySet="tbm_fooditem" />
+            <End Role="tbt_menu" EntitySet="tbt_menu" />
+          </AssociationSet>
+          <AssociationSet Name="tbt_user_favorites" Association="Self.tbt_user_favorites">
+            <End Role="tbm_user" EntitySet="tbm_user" />
+            <End Role="tbm_fooditem" EntitySet="tbm_fooditem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="crispyspoonDBModelStoreContainer" CdmEntityContainer="crispyspoonDBEntities">
+          <EntitySetMapping Name="tbm_cafeteria">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_cafeteria">
+              <MappingFragment StoreEntitySet="tbm_cafeteria">
+                <ScalarProperty Name="cafeteria_code" ColumnName="cafeteria_code" />
+                <ScalarProperty Name="cafeteria_name" ColumnName="cafeteria_name" />
+                <ScalarProperty Name="vendor_code" ColumnName="vendor_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbm_city">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_city">
+              <MappingFragment StoreEntitySet="tbm_city">
+                <ScalarProperty Name="city_code" ColumnName="city_code" />
+                <ScalarProperty Name="city_name" ColumnName="city_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbm_entitlement">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_entitlement">
+              <MappingFragment StoreEntitySet="tbm_entitlement">
+                <ScalarProperty Name="entitlement_code" ColumnName="entitlement_code" />
+                <ScalarProperty Name="entitlement_name" ColumnName="entitlement_name" />
+                <ScalarProperty Name="entitlement_description" ColumnName="entitlement_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbm_facility">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_facility">
+              <MappingFragment StoreEntitySet="tbm_facility">
+                <ScalarProperty Name="facility_code" ColumnName="facility_code" />
+                <ScalarProperty Name="facility_name" ColumnName="facility_name" />
+                <ScalarProperty Name="city_code" ColumnName="city_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbm_fooditem">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_fooditem">
+              <MappingFragment StoreEntitySet="tbm_fooditem">
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="item_description" ColumnName="item_description" />
+                <ScalarProperty Name="calorie_count" ColumnName="calorie_count" />
+                <ScalarProperty Name="item_veg_nonveg" ColumnName="item_veg_nonveg" />
+                <ScalarProperty Name="vendor_code" ColumnName="vendor_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbm_role">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_role">
+              <MappingFragment StoreEntitySet="tbm_role">
+                <ScalarProperty Name="role_code" ColumnName="role_code" />
+                <ScalarProperty Name="role_description" ColumnName="role_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbm_user">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_user">
+              <MappingFragment StoreEntitySet="tbm_user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="city_code" ColumnName="city_code" />
+                <ScalarProperty Name="facility_code" ColumnName="facility_code" />
+                <ScalarProperty Name="cafeteria_code" ColumnName="cafeteria_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbm_vendor">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbm_vendor">
+              <MappingFragment StoreEntitySet="tbm_vendor">
+                <ScalarProperty Name="vendor_code" ColumnName="vendor_code" />
+                <ScalarProperty Name="vendor_name" ColumnName="vendor_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbt_menu">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbt_menu">
+              <MappingFragment StoreEntitySet="tbt_menu">
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+                <ScalarProperty Name="menu_date" ColumnName="menu_date" />
+                <ScalarProperty Name="meal_type" ColumnName="meal_type" />
+                <ScalarProperty Name="menu_item_name" ColumnName="menu_item_name" />
+                <ScalarProperty Name="cafeteria_code" ColumnName="cafeteria_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbt_order">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbt_order">
+              <MappingFragment StoreEntitySet="tbt_order">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="order_placed" ColumnName="order_placed" />
+                <ScalarProperty Name="order_delivered" ColumnName="order_delivered" />
+                <ScalarProperty Name="order_printed" ColumnName="order_printed" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+                <ScalarProperty Name="order_qr_code" ColumnName="order_qr_code" />
+                <ScalarProperty Name="order_rating" ColumnName="order_rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbt_user_wishlist">
+            <EntityTypeMapping TypeName="crispyspoonDBModel.tbt_user_wishlist">
+              <MappingFragment StoreEntitySet="tbt_user_wishlist">
+                <ScalarProperty Name="wishlist_id" ColumnName="wishlist_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tbm_entitlement_mapping" TypeName="crispyspoonDBModel.tbm_entitlement_mapping" StoreEntitySet="tbm_entitlement_mapping">
+            <EndProperty Name="tbm_role">
+              <ScalarProperty Name="role_code" ColumnName="role_code" />
+            </EndProperty>
+            <EndProperty Name="tbm_entitlement">
+              <ScalarProperty Name="entitlement_code" ColumnName="entitlement_code" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="tbm_facility_cafeteria_mapping" TypeName="crispyspoonDBModel.tbm_facility_cafeteria_mapping" StoreEntitySet="tbm_facility_cafeteria_mapping">
+            <EndProperty Name="tbm_facility">
+              <ScalarProperty Name="facility_code" ColumnName="facility_code" />
+            </EndProperty>
+            <EndProperty Name="tbm_cafeteria">
+              <ScalarProperty Name="cafeteria_code" ColumnName="cafeteria_code" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="tbm_user_role" TypeName="crispyspoonDBModel.tbm_user_role" StoreEntitySet="tbm_user_role">
+            <EndProperty Name="tbm_role">
+              <ScalarProperty Name="role_code" ColumnName="role_code" />
+            </EndProperty>
+            <EndProperty Name="tbm_user">
+              <ScalarProperty Name="user_id" ColumnName="user_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="tbt_menu_item" TypeName="crispyspoonDBModel.tbt_menu_item" StoreEntitySet="tbt_menu_item">
+            <EndProperty Name="tbm_fooditem">
+              <ScalarProperty Name="item_code" ColumnName="item_code" />
+            </EndProperty>
+            <EndProperty Name="tbt_menu">
+              <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="tbt_user_favorites" TypeName="crispyspoonDBModel.tbt_user_favorites" StoreEntitySet="tbt_user_favorites">
+            <EndProperty Name="tbm_user">
+              <ScalarProperty Name="user_id" ColumnName="user_id" />
+            </EndProperty>
+            <EndProperty Name="tbm_fooditem">
+              <ScalarProperty Name="item_code" ColumnName="item_code" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

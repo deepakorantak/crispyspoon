@@ -22,7 +22,7 @@ namespace crispyspoon.Views
 
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new LoginPage());
+            await Navigation.PushAsync(new ItemsPage());
         }
 
         async void OnAboutButtonClicked(object sender, EventArgs e)
