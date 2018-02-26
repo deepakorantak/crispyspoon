@@ -1,14 +1,11 @@
-﻿using System;
+﻿using CrispySpoon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
-using crispyspoon.Models;
-using Newtonsoft.Json;
-
-[assembly: Xamarin.Forms.Dependency(typeof(crispyspoon.Services.MockDataStore))]
-namespace crispyspoon.Services
+[assembly: Xamarin.Forms.Dependency(typeof(CrispySpoon.Services.MockDataStore))]
+namespace CrispySpoon.Services
 {
     public class MockDataStore : IDataStore<Item>
     {
@@ -67,7 +64,7 @@ namespace crispyspoon.Services
             return await Task.FromResult(items);
 
             //HttpClient client = new HttpClient();
-            //var response = await client.GetStringAsync("http://crispyspoonapi.azurewebsites.net/api/cafeteria");
+            //var response = await client.GetStringAsync("http://CrispySpoonapi.azurewebsites.net/api/cafeteria");
             //var todoItems = JsonConvert.DeserializeObject<List<Item>>(response);
             //return await Task.FromResult(todoItems);
 

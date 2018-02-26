@@ -1,4 +1,4 @@
-﻿namespace crispyspoon
+﻿namespace CrispySpoon
 {
     public static class Constants
     {

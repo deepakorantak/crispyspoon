@@ -1,11 +1,9 @@
-﻿using System;
-
-using crispyspoon.Views;
+﻿using CrispySpoon.Views;
 using Xamarin.Forms;
 
-namespace crispyspoon
+namespace CrispySpoon
 {
-	public partial class App : Application
+    public partial class App : Application
 	{
         public static bool IsUserLoggedIn = false;
 
@@ -13,15 +11,6 @@ namespace crispyspoon
 		{
 			InitializeComponent();
             MainPage = new NavigationPage(new HomePage());
-
-            //if (!IsUserLoggedIn)
-            //{
-            //    MainPage = new NavigationPage(new LoginPage());
-            //}
-            //else
-            //{
-            //    MainPage = new NavigationPage(new MainPage());
-            //}
         }
 
 		protected override void OnStart ()

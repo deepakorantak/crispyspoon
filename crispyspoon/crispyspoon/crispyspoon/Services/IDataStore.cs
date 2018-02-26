@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace crispyspoon.Services
+namespace CrispySpoon.Services
 {
     public interface IDataStore<T>
     {

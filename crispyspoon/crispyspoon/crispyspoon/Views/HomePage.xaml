@@ -1,21 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="crispyspoon.Views.HomePage" 
+             x:Class="CrispySpoon.Views.HomePage" 
              Title="{Binding Title}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
-        </StackLayout>
-        <ScrollView Grid.Row="1" VerticalOptions="Center">
+        <ScrollView VerticalOptions="Center">
             <StackLayout VerticalOptions="StartAndExpand">
                 <Button Margin="10,10,10,0" Text="Login" Clicked="OnLoginButtonClicked" />
                 <Button Margin="10,10,10,0" Text="About" Clicked="OnAboutButtonClicked" />

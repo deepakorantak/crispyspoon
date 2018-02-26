@@ -1,11 +1,10 @@
-﻿using crispyspoon.Models;
-using crispyspoon.ViewModels;
+﻿using CrispySpoon.ViewModels;
 using System;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace crispyspoon.Views
+namespace CrispySpoon.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -21,13 +20,13 @@ namespace crispyspoon.Views
 
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            var user = new User
+            var user = new 
             {
                 Username = usernameEntry.Text,
                 Password = passwordEntry.Text
             };
 
-            var isValid = AreCredentialsCorrect(user);
+            var isValid = AreCredentialsCorrect(user.Username, user.Password);
 
             if (isValid)
             {
@@ -43,9 +42,9 @@ namespace crispyspoon.Views
             }
         }
 
-        bool AreCredentialsCorrect(User user)
+        bool AreCredentialsCorrect(string user, string password)
         {
-            return user.Username == Constants.Username && user.Password == Constants.Password;
+            return user == Constants.Username && password == Constants.Password;
         }
     }
 

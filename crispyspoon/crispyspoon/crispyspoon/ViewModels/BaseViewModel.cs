@@ -5,10 +5,10 @@ using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
 
-using crispyspoon.Models;
-using crispyspoon.Services;
+using CrispySpoon.Models;
+using CrispySpoon.Services;
 
-namespace crispyspoon.ViewModels
+namespace CrispySpoon.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace crispyspoon.ViewModels
+﻿namespace CrispySpoon.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {

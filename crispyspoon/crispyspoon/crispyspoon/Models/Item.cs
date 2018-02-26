@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace crispyspoon.Models
+﻿namespace CrispySpoon.Models
 {
     public class Item
     {

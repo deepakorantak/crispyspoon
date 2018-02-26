@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 using Xamarin.Forms;
 
-namespace crispyspoon.ViewModels
+namespace CrispySpoon.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
