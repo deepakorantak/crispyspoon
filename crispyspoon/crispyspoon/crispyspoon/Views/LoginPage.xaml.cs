@@ -32,7 +32,7 @@ namespace CrispySpoon.Views
             {
                 App.IsUserLoggedIn = true;
 
-                Navigation.InsertPageBefore(new MainPage(), this);
+                Navigation.InsertPageBefore(new CafeteriaListPage(), this);
                 await Navigation.PopAsync();
             }
             else
