@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CrispySpoon.Views.CafeteriaListPage"
+             x:Class="CrispySpoon.Views.VendorListPage"
              Title="{Binding Title}">
-
-    <ListView x:Name="CafeteriasListView"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ListView x:Name="VendorListView"
             ItemTapped="Handle_ItemTapped"
             RefreshCommand="{Binding LoadItemsCommand}"
             VerticalOptions="FillAndExpand"
@@ -12,10 +14,13 @@
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             CachingStrategy="RecycleElement">
 
-        <!--Built in Cells-->
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding .}" />
+                <ViewCell>
+                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding VendorName}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                    </StackLayout>
+                </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
 

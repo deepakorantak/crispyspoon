@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrispySpoon.Views.NewVendorPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Code" FontSize="Medium" />
+            <Entry x:Name="VendorCode" Text="{Binding Vendor.VendorCode}" FontSize="Small" />
+            <Label Text="Name" FontSize="Medium" />
+            <Editor x:Name="VendorName" Text="{Binding Vendor.VendorName}" FontSize="Small" Margin="0" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

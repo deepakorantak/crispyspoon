@@ -1,10 +1,12 @@
-﻿using CrispySpoon.Views;
+﻿using CrispySpoon.Data;
+using CrispySpoon.Views;
 using Xamarin.Forms;
 
 namespace CrispySpoon
 {
     public partial class App : Application
 	{
+        static CrispySpoonDatabase database;
         public static bool IsUserLoggedIn = false;
 
         public App ()
@@ -13,7 +15,19 @@ namespace CrispySpoon
             MainPage = new NavigationPage(new HomePage());
         }
 
-		protected override void OnStart ()
+        public static CrispySpoonDatabase Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new CrispySpoonDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("CrispySpoonDB.db3"));
+                }
+                return database;
+            }
+        }
+
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}

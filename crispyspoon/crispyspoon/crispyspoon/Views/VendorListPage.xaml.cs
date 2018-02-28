@@ -1,9 +1,6 @@
 ﻿using CrispySpoon.ViewModels;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,17 +8,17 @@ using Xamarin.Forms.Xaml;
 namespace CrispySpoon.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CafeteriaListPage : ContentPage
+    public partial class VendorListPage : ContentPage
     {
-        CafeteriaViewModel viewModel;
-        public ObservableCollection<string> Cafeterias { get; set; }
+        VendorViewModel viewModel;
+        public ObservableCollection<string> Vendors { get; set; }
 
-        public CafeteriaListPage()
+        public VendorListPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new CafeteriaViewModel();
+            BindingContext = viewModel = new VendorViewModel();
 
-            CafeteriasListView.ItemsSource = viewModel.Cafeterias;
+            VendorListView.ItemsSource = viewModel.Vendors;
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -39,8 +36,13 @@ namespace CrispySpoon.Views
         {
             base.OnAppearing();
 
-            if (viewModel.Cafeterias.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            //if (viewModel.Vendors.Count == 0)
+            viewModel.LoadItemsCommand.Execute(null);
+        }
+
+        async void AddItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new NewVendorPage());
         }
     }
 }
