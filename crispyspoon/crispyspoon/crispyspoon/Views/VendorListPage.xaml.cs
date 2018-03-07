@@ -21,7 +21,7 @@ namespace CrispySpoon.Views
             VendorListView.ItemsSource = viewModel.Vendors;
         }
 
-        async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
+        async void Handle_VendorTapped(object sender, ItemTappedEventArgs e)
         {
             if (e.Item == null)
                 return;
@@ -37,10 +37,10 @@ namespace CrispySpoon.Views
             base.OnAppearing();
 
             //if (viewModel.Vendors.Count == 0)
-            viewModel.LoadItemsCommand.Execute(null);
+            viewModel.LoadVendorsCommand.Execute(null);
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
+        async void AddNewVendor_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new NewVendorPage());
         }

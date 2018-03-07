@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CrispySpoon.Views.VendorListPage"
              Title="{Binding Title}">
+    
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+        <ToolbarItem Text="Add" Clicked="AddNewVendor_Clicked" />
     </ContentPage.ToolbarItems>
+    
     <ListView x:Name="VendorListView"
-            ItemTapped="Handle_ItemTapped"
-            RefreshCommand="{Binding LoadItemsCommand}"
+            ItemTapped="Handle_VendorTapped"
+            RefreshCommand="{Binding LoadVendorsCommand}"
             VerticalOptions="FillAndExpand"
             IsPullToRefreshEnabled="true"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"

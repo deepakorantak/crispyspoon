@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CrispySpoon.Models
+﻿namespace CrispySpoon.Models
 {
     public interface IEntity
     {

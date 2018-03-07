@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CrispySpoon.Views.NewVendorPage">
+    
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+        <ToolbarItem Text="Save" Clicked="SaveVendor_Clicked" />
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Code" FontSize="Medium" />
