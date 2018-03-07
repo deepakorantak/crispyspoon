@@ -1,4 +1,5 @@
-﻿using CrispySpoon.ViewModels;
+﻿using CrispySpoon.Models;
+using CrispySpoon.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 
@@ -25,8 +26,13 @@ namespace CrispySpoon.Views
         {
             if (e.Item == null)
                 return;
+            else
+                await Navigation.PushAsync(new VendorDetailPage
+                {
+                    BindingContext = e.Item as Vendor
+                });
 
-            await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
+            //await DisplayAlert("Item Tapped", "An item was tapped.", "OK");
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

@@ -26,6 +26,12 @@ namespace CrispySpoon.ViewModels
                 Vendors.Add(_vendor);
                 await App.Database.SaveDataAsync(_vendor);
             });
+
+            MessagingCenter.Subscribe<VendorDetailPage, Vendor>(this, "DeleteVendor", async (obj, vendor) =>
+            {
+                Vendors.Remove(vendor);
+                await App.Database.DeleteDataAsync(vendor);
+            });
         }
 
         async Task ExecuteLoadVendorsCommand()

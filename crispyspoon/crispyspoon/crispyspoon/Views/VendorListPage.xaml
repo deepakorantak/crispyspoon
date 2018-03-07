@@ -5,7 +5,7 @@
              Title="{Binding Title}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="AddNewVendor_Clicked" />
+        <ToolbarItem Text="+" Clicked="AddNewVendor_Clicked" />
     </ContentPage.ToolbarItems>
     
     <ListView x:Name="VendorListView"

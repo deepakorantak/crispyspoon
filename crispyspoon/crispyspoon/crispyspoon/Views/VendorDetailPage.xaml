@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrispySpoon.Views.VendorDetailPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="X" Clicked="DeleteVendor_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Code" FontSize="Medium" />
+            <Entry x:Name="VendorCode" Text="{Binding VendorCode}" FontSize="Small" />
+            <Label Text="Name" FontSize="Medium" />
+            <Editor x:Name="VendorName" Text="{Binding VendorName}" FontSize="Small" Margin="0" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
