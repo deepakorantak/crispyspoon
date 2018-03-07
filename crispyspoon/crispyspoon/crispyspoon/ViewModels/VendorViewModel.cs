@@ -33,7 +33,7 @@ namespace CrispySpoon.ViewModels
                 Vendors.Clear();
                 IEnumerable<Vendor> vendors;
 
-                vendors = await App.Database.GetItemsAsync();
+                vendors = await App.Database.GetItemsAsync<Vendor>();
 
                 foreach (var vendor in vendors)
                 {

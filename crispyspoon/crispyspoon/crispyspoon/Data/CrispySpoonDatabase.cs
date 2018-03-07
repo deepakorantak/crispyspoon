@@ -3,6 +3,7 @@ using SQLite;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace CrispySpoon.Data
 {
     public class CrispySpoonDatabase
@@ -15,22 +16,22 @@ namespace CrispySpoon.Data
             database.CreateTableAsync<Vendor>().Wait();
         }
 
-        public Task<List<Vendor>> GetItemsAsync()
+        public Task<List<T>> GetItemsAsync<T>() where T : new()
         {
-            return database.Table<Vendor>().ToListAsync();
+            return database.Table<T>().ToListAsync();
         }
 
-        public Task<List<Vendor>> GetItemsNotDoneAsync()
+        public Task<List<T>> GetItemsNotDoneAsync<T>() where T : new()
         {
-            return database.QueryAsync<Vendor>("SELECT * FROM [Vendor]");
+            return database.QueryAsync<T>("SELECT * FROM [T]");
         }
 
-        public Task<Vendor> GetItemAsync(int id)
+        public Task<T> GetItemAsync<T>(int id) where T : IEntity ,new() 
         {
-            return database.Table<Vendor>().Where(i => i.ID == id).FirstOrDefaultAsync();
+            return database.Table<T>().Where(i => i.ID == id).FirstOrDefaultAsync();
         }
 
-        public Task<int> SaveVendorAsync(Vendor item)
+        public Task<int> SaveVendorAsync<T>(T item) where T : IEntity, new()
         {
             if (item.ID != 0)
             {
@@ -42,7 +43,7 @@ namespace CrispySpoon.Data
             }
         }
 
-        public Task<int> DeleteItemAsync(Vendor item)
+        public Task<int> DeleteItemAsync<T>(T item) where T : IEntity, new()
         {
             return database.DeleteAsync(item);
         }

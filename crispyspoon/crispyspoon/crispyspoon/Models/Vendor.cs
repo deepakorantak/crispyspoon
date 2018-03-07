@@ -2,7 +2,7 @@
 
 namespace CrispySpoon.Models
 {
-    public class Vendor
+    public class Vendor : IEntity
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
